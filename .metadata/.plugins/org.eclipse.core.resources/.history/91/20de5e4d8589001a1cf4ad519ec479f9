@@ -1,0 +1,45 @@
+package es.uabs.paneles;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import es.uabcs.TextPrompt;
+
+public class PanelMenu extends JPanel{
+	
+	JLabel titulo=new JLabel("MENU");
+	JLabel resultado=new JLabel();
+	JTextField usuario,contrasena;
+	JButton entrar, registrarse;
+	
+	
+	
+	PLogin pl=new PLogin();
+	
+	public PanelMenu(int w,int h) throws RemoteException, NotBoundException{
+		// TODO Auto-generated constructor stub
+		setVisible(true);
+		
+		this.setLayout(null);
+		titulo.setBounds(w/2-60, 20, 100, 50);
+		titulo.setForeground(new Color(255,255,255));
+		titulo.setFont(new Font("Arial", 0, 30));
+		this.add(titulo);	
+		
+		
+		
+		
+		this.setOpaque(false);
+	}
+	
+}

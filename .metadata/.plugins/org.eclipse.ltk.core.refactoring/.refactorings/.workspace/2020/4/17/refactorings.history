@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;comun&apos;" deleteContents="false" description="Delete resource &apos;comun&apos;" element1="/comun" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1587923491872"/>&#x0A;<refactoring comment="Delete resource &apos;Codigo ejemplo Java RMI (UNED)&apos;" deleteContents="false" description="Delete resource &apos;Codigo ejemplo Java RMI (UNED)&apos;" element1="/Codigo ejemplo Java RMI (UNED)" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1587923509901"/>
+</session>

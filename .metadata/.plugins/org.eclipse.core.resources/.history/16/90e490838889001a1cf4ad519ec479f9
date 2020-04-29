@@ -1,0 +1,69 @@
+package es.uabcs;
+
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import es.uabcs.commod.ImagenJChoser;
+
+public class VentanaCliente extends JFrame {
+	JButton b=new JButton();
+		ImagenJChoser im=new ImagenJChoser();
+	public VentanaCliente() {
+		super("Sistema Distribuido");
+		this.setSize(600, 400);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
+		
+		JButton b=new JButton();
+		b.setBounds(100, 100, 30, 30);
+		b.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		add(b);
+		this.add(im);
+		
+		fondo();
+	}
+	 public void open_file() {
+	        JFileChooser j = new JFileChooser();
+	        //j.setCurrentDirectory(new File("ruta de archivo a recordar"));
+	        FileNameExtensionFilter fil = new FileNameExtensionFilter("JPG, PNG & GIF", "jpg", "png", "gif");
+	        j.setFileFilter(fil);
+	        j.setCurrentDirectory(new File("Fotos"));
+	        ImagenJChoser preview = new ImagenJChoser();
+	        j.setAccessory(preview);
+	        j.addPropertyChangeListener(preview);
+
+	        int el = j.showOpenDialog(this);
+	        if (el == JFileChooser.APPROVE_OPTION) {
+	            //txtRuta.setText(j.getSelectedFile().getAbsolutePath());
+	          //  Image img= new ImageIcon(j.getSelectedFile().getAbsolutePath());
+	            //ImageIcon img2=new ImageIcon(img.getScaledInstance(90, 80, Image.SCALE_SMOOTH));   
+	            b.setIcon(new ImageIcon(j.getSelectedFile().getAbsolutePath()));
+	        	//lblFoto.setIcon(img2);
+	        }
+	    }
+	public void fondo() {
+		try {
+			FondoSwing fondo = new FondoSwing(ImageIO.read(new File("src/img/fondo.jpg")));
+			JPanel panel = (JPanel) this.getContentPane();
+			panel.setBorder(fondo);
+		} catch (IOException ex) {
+			JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+}

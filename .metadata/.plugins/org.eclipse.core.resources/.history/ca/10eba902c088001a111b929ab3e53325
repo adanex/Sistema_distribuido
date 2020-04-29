@@ -1,0 +1,127 @@
+package es.uabcs;
+
+import java.io.BufferedReader;
+import java.io.Console;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.List;
+import java.util.Scanner;
+
+import es.uabcs.bd.Usuarios;
+import es.uabcs.commod.IServidor;
+import es.uabcs.commod.Mensaje;
+
+public class MainCliente {
+	
+	private static int miSesion = 0;
+	private static IServidor servidor;
+	private static Console console = System.console();
+	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	
+	public static void main(String[] args) throws Exception {
+		Registry registry = LocateRegistry.getRegistry("localhost");
+		servidor = (IServidor)registry.lookup("Mensajeria");
+		System.out.println("sin problemas7");
+		
+		Usuarios u= servidor.login("adan", "123");
+		if(u==null) {
+			System.out.println("no se inicializo");
+		}else {
+			System.out.println("id= " + u.getId());
+		}
+		
+		pruebasbd();
+		
+		//Login v= new Login();
+		//v.setVisible(true);
+		
+		
+	}
+	
+	private static void pruebasbd() throws RemoteException{
+		try {
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+	
+	private static void gui() throws RemoteException {
+		int opt = 0;
+		
+		do {
+			opt = Gui.menu("Menu Principal",new String[] {	"Autenticarse",
+															"Agregar Contacto",
+															"Enviar Mensaje",
+															"Recibir Mensajes",
+															"Salir"});
+			
+			switch (opt) {
+				case 0: autenticarse(); break;
+				case 1: agregarContacto(); break;
+				case 2: enviarMensaje(); break;
+				case 3: recibirMensajes(); break;
+			}
+		}
+		while (opt != 4);
+	}
+	
+	private static void autenticarse() throws RemoteException {
+		String nombre = Gui.input("Autenticarse",  "Introduzca su nombre: ");
+		if (nombre != null && !nombre.isEmpty()) {
+			miSesion = servidor.autenticar(nombre);
+		}
+	}
+	
+	private static void agregarContacto() throws RemoteException {
+		String contacto = Gui.input("Agregar Contacto",  "Introduzca el contacto: ");
+		if (contacto != null && !contacto.isEmpty()) {
+			int suSesion = servidor.agregar(contacto, miSesion);
+			System.out.println("La sesion de " + contacto + " es " + suSesion);
+		}
+	}
+	
+	private static void recibirMensajes() throws RemoteException {
+		System.out.println("=== Mensajes recibidos ===");
+		
+		List<Mensaje> mensajes = servidor.recibir(miSesion);
+		
+		for (Mensaje mensaje: mensajes) {
+			System.out.println("De " + mensaje.getRemitente());
+			System.out.println("\t" + mensaje.getCuerpo() + "\n");
+		}
+		
+		System.out.println();
+		
+		servidor.limpiarBuffer(miSesion);
+	}
+	
+	private static void enviarMensaje() throws RemoteException {
+		String opts[] = Gui.input("Enviar Mensaje",
+				new String[] {	"Ingrese la sesion del contacto: ",
+								"Ingrese el mensaje: "});
+		
+		int suSesion = Integer.parseInt(opts[0]);
+		String mensaje = opts[1];
+		
+		servidor.enviar(mensaje, miSesion, suSesion);		
+	}
+	
+	private static String readLine() {
+		if (console != null) return console.readLine();
+		
+		try {
+			return reader.readLine();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+}
+

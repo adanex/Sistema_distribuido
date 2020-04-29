@@ -1,0 +1,83 @@
+package es.uabs.paneles;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import es.uabcs.TextPrompt;
+import es.uabcs.commod.ImagenJChoser;
+
+public class PanelMenu extends JPanel{
+	
+	JLabel titulo=new JLabel("MENU");
+	JLabel foto=new JLabel("foto");
+	
+	ImagenJChoser img;
+	
+	
+	
+	PLogin pl=new PLogin();
+	
+	public PanelMenu(int w,int h) throws RemoteException, NotBoundException{
+		// TODO Auto-generated constructor stub
+		setVisible(true);
+		
+		this.setLayout(null);
+		titulo.setBounds(w/2-60, 20, 100, 50);
+		titulo.setForeground(new Color(255,255,255));
+		titulo.setFont(new Font("Arial", 0, 30));
+		this.add(titulo);	
+		
+		foto.setBounds(w-60, 20, 50, 50);
+		
+		
+		ImageIcon imgIcon = new ImageIcon(getClass().getResource("src/img/meme2.jpg"));
+        Image imgEscalada = imgIcon.getImage().getScaledInstance(foto.getWidth(),
+        foto.getHeight(), Image.SCALE_SMOOTH);
+        Icon iconoEscalado = new ImageIcon(imgEscalada);
+        foto.setIcon(iconoEscalado);
+		
+        
+        
+		
+		
+		this.setOpaque(false);
+	}
+	
+	public void open_file() {
+        JFileChooser j = new JFileChooser();
+        //j.setCurrentDirectory(new File("ruta de archivo a recordar"));
+        FileNameExtensionFilter fil = new FileNameExtensionFilter("JPG, PNG & GIF", "jpg", "png", "gif");
+        j.setFileFilter(fil);
+        j.setCurrentDirectory(new File("Fotos"));
+        ImagenJChoser preview = new ImagenJChoser();
+        j.setAccessory(preview);
+        j.addPropertyChangeListener(preview);
+
+        int el = j.showOpenDialog(this);
+        if (el == JFileChooser.APPROVE_OPTION) {
+            //txtRuta.setText(j.getSelectedFile().getAbsolutePath());
+          //  Image img= new ImageIcon(j.getSelectedFile().getAbsolutePath());
+            //ImageIcon img2=new ImageIcon(img.getScaledInstance(90, 80, Image.SCALE_SMOOTH)); 
+        	Image img= new ImageIcon(j.getSelectedFile().getAbsolutePath()).getImage();
+        	ImageIcon img2=new ImageIcon(img.getScaledInstance(foto.getWidth(), foto.getHeight(), Image.SCALE_SMOOTH));
+            foto.setIcon(img2);
+        	//lblFoto.setIcon(img2);
+        }
+    }
+	
+}

@@ -1,0 +1,7 @@
+package Servidor;
+import java.rmi.*;
+import java.rmi.server.RemoteObject;
+
+public class ServicioEco extends RemoteObject{
+	
+}

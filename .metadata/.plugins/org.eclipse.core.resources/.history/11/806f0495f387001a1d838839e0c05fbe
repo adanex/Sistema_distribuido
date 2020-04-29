@@ -1,0 +1,13 @@
+package es.uabcs;
+
+import javax.swing.JFrame;
+
+public class VentanaCliente extends JFrame{
+	
+	public VentanaCliente() {
+		super("Sistema Distribuido");
+		this.setSize(600,400);
+
+		
+	}
+}

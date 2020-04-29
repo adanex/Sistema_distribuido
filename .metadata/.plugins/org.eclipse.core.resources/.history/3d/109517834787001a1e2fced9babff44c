@@ -1,0 +1,6 @@
+package es.uned.servidor;
+
+
+public class Servidor implements IServidor{
+
+}

@@ -1,0 +1,22 @@
+package es.uabcs;
+
+import java.io.File;
+
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class VentanaCliente extends JFrame{
+	
+	public VentanaCliente() {
+		super("Sistema Distribuido");
+		this.setSize(600,400);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		FondoSwing fondo = new FondoSwing(ImageIO.read(new File("img/fondo.jpg")));
+        JPanel panel = (JPanel) this.getContentPane();
+        panel.setBorder(fondo);
+
+		
+	}
+}

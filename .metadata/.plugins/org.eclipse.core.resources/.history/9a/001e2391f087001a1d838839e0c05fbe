@@ -1,0 +1,17 @@
+package es.uabcs;
+
+public class Snippet {
+	Scanner leer = new Scanner(System.in);
+			System.out.println("escriba un nuemro");
+			int uno=leer.nextInt();
+			System.out.println("escriba un otro");
+			int dos=leer.nextInt();
+			Scanner leer = new Scanner(System.in);
+					System.out.println("escriba un nuemro");
+					int uno=leer.nextInt();
+					System.out.println("escriba un otro");
+					int dos=leer.nextInt();
+					System.out.println("= "+servidor.suma(uno, dos));
+			System.out.println("= "+servidor.suma(uno, dos));
+}
+
